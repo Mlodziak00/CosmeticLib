@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "amount": 1,
+  "order": 0,
+  "icon": "cosmetic-lib:gui/slots/clothes_slot",
+  "drop_rule": "default"
+}
