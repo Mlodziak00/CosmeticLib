@@ -2,7 +2,9 @@ package net.lightglow.cosmlib.mixin;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.lightglow.cosmlib.CosmeticLib;
 import net.lightglow.cosmlib.client.renderer.feature.ClothingFeature;
+import net.lightglow.cosmlib.common.item.ClothingItem;
 import net.lightglow.cosmlib.common.reg.TagsInit;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -11,6 +13,7 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
@@ -43,6 +46,8 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 	@Unique
 	protected void setVisible(LivingEntity entity) {
 			TrinketsApi.getTrinketComponent(entity).ifPresent(trinketComponent -> {
+				EquipmentSlot slot = EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, 2);
+				ItemStack cosmeticStack = CosmeticLib.getCosmeticArmor(entity, slot);
 				List<Pair<SlotReference, ItemStack>> res = trinketComponent.getEquipped(itemStack -> itemStack.isIn(TagsInit.Items.COSMETICS));
 				if (res.size() == 0){
 					this.model.jacket.visible = true;
@@ -50,12 +55,18 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 					this.model.leftSleeve.visible = true;
 					this.model.rightPants.visible = true;
 					this.model.leftPants.visible = true;
+					this.model.hat.visible = true;
 				} else {
 					this.model.jacket.visible = false;
 					this.model.rightSleeve.visible = false;
 					this.model.leftSleeve.visible = false;
 					this.model.rightPants.visible = false;
 					this.model.leftPants.visible = false;
+					if (cosmeticStack.getItem() instanceof ClothingItem clothingItem){
+						if (clothingItem.getIsHatLayerHidden()){
+							this.model.hat.visible = false;
+						}
+					}
 				}
 			});
 

@@ -38,7 +38,7 @@ public class ClothingFeature extends FeatureRenderer<AbstractClientPlayerEntity,
         ItemStack cosmeticStack = CosmeticLib.getCosmeticArmor(entity, slot);
         if (!cosmeticStack.isEmpty()) {
             if (cosmeticStack.getItem() instanceof ClothingItem clothingItem) {
-                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier(clothingItem.namespace, "textures/clothing/" + isSlim(slim) + clothingItem.getClothTexture() + ".png")));
+                VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getArmorCutoutNoCull(new Identifier(clothingItem.modID, "textures/clothing/" + isSlim(slim) + clothingItem.getClothTexture() + ".png")));
                 if (slim){
                     SlimClothingModel model = slimclothingModel;
                     getContextModel().copyBipedStateTo(model);
