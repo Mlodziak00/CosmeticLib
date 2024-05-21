@@ -63,7 +63,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 					this.model.rightPants.visible = false;
 					this.model.leftPants.visible = false;
 					if (cosmeticStack.getItem() instanceof ClothingItem clothingItem){
-						if (clothingItem.getIsHatLayerHidden()){
+						if (!clothingItem.getIsHatLayerHidden()){
 							this.model.hat.visible = false;
 						}
 					}
