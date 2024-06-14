@@ -50,6 +50,7 @@ public class ClothingFeature extends FeatureRenderer<AbstractClientPlayerEntity,
                     model.adjustArmPivots(slim);
                     model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0F);
                 }
+
             }
         }
     }
